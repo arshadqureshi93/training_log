@@ -1,0 +1,45 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"CS8YXu5mRV\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Add New +\",\"col\":3}},{\"id\":\"q9taQz6k1E\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Customer Training Log\",\"col\":4}}]",
+ "creation": "2025-06-10 10:47:54.319611",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "read-status",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "CTL",
+ "links": [],
+ "modified": "2025-06-10 10:51:35.396543",
+ "modified_by": "Administrator",
+ "module": "Training Log",
+ "name": "CTL",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 77.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Customer Training Log",
+   "link_to": "Customer Training Log",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Add New +",
+   "type": "URL",
+   "url": "/app/customer-training-log/new-customer-training-log"
+  }
+ ],
+ "title": "CTL"
+}

@@ -62,13 +62,14 @@
   {
    "fieldname": "naming_series",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series",
    "options": "CTL-.#####"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-09 16:08:08.579360",
+ "modified": "2025-06-10 10:46:21.588261",
  "modified_by": "Administrator",
  "module": "Training Log",
  "name": "Customer Training Log",
