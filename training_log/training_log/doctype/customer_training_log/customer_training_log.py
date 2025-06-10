@@ -5,45 +5,42 @@ import calendar
 
 class CustomerTrainingLog(Document):
     def validate(self):
-        # Mandatory field validations
-        if not self.customer:
-            frappe.throw("Customer is mandatory.")
-        if not self.training_type:
-            frappe.throw("Training Type is mandatory.")
-        if not self.start_date:
-            frappe.throw("Start Date is mandatory.")
-        if not self.end_date:
-            frappe.throw("End Date is mandatory.")
+        self._validate_mandatory_fields()
+        self._convert_dates()
+        self._validate_dates()
+        self._calculate_duration()
+        self._set_feedback_due_date()
+        self._check_for_duplicates()
 
-        # Convert start_date and end_date from string to date
+    def _validate_mandatory_fields(self):
+        for field in ["customer", "training_type", "start_date", "end_date"]:
+            if not getattr(self, field):
+                frappe.throw(f"{field.replace('_', ' ').title()} is mandatory.")
+
+    def _convert_dates(self):
         if isinstance(self.start_date, str):
             self.start_date = datetime.strptime(self.start_date, "%Y-%m-%d").date()
         if isinstance(self.end_date, str):
             self.end_date = datetime.strptime(self.end_date, "%Y-%m-%d").date()
-            
-        # Validate that start_date is not greater than end_date
+
+    def _validate_dates(self):
         if self.start_date > self.end_date:
             frappe.throw("Start Date cannot be greater than End Date.")
-            
         if self.start_date == self.end_date:
             frappe.throw("Start Date and End Date cannot be the same.")
 
-        # Calculate duration (inclusive)
+    def _calculate_duration(self):
         self.duration_days = (self.end_date - self.start_date).days + 1
 
-        # Set feedback_due_date based on training_type
-        days_map = {
-            "Basic": 7,
-            "Advanced": 14,
-            "Special": 21
-        }
-        self.feedback_due_date = self.end_date + timedelta(days=days_map.get(self.training_type, 7))
+    def _set_feedback_due_date(self):
+        feedback_days = {"Basic": 7, "Advanced": 14, "Special": 21}
+        self.feedback_due_date = self.end_date + timedelta(days=feedback_days.get(self.training_type, 7))
 
-        # Prevent duplicate entries for same month
+    def _check_for_duplicates(self):
         month_start = self.start_date.replace(day=1)
         last_day = calendar.monthrange(self.start_date.year, self.start_date.month)[1]
         month_end = self.start_date.replace(day=last_day)
-        
+
         exists = frappe.db.exists(
             "Customer Training Log",
             {
